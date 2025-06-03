@@ -1,0 +1,19 @@
+body {
+  width: 300px;
+  padding: 10px;
+  font-family: Arial, sans-serif;
+}
+
+.container {
+  padding: 15px;
+}
+
+h1 {
+  font-size: 18px;
+  color: #333;
+  margin-bottom: 15px;
+}
+
+#content {
+  margin-top: 10px;
+} 
