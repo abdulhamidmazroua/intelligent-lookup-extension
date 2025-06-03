@@ -8,7 +8,7 @@
     "scripting"
   ],
   "host_permissions": [
-    "*://*.youtube.com/*"
+    "https://www.youtube.com/*"
   ],
   "action": {
     "default_popup": "popup.html",
@@ -25,7 +25,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*.youtube.com/*"],
+      "matches": ["https://www.youtube.com/*"],
       "js": ["scripts/content.js"]
     }
   ]
