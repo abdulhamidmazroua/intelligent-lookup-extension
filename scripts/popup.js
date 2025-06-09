@@ -182,16 +182,28 @@ function loadLanguages() {
   });
 }
 
-// Initialize when DOM is loaded
+// Function to reset all state
+function resetState() {
+  currentVideo = null;
+  currentTranscript = null;
+  selectedLanguage = '';
+  console.log('State reset'); // Debug log
+}
+
+// Modified initialization code
 document.addEventListener('DOMContentLoaded', function() {
-  console.log('Popup initialized'); // For debugging
+  console.log('Popup initialized'); // Debug log
+  
+  // Reset all state when popup opens
+  resetState();
   
   // Add event listeners
   const searchInput = document.getElementById('keyword');
   const searchButton = document.getElementById('searchButton');
   const languageSelect = document.getElementById('languageSelect');
   
-  searchInput.addEventListener('input', debounce(searchKeyword, 300));
+  // Use a shorter debounce time for better responsiveness
+  searchInput.addEventListener('input', debounce(searchKeyword, 200));
   searchButton.addEventListener('click', searchKeyword);
   
   // Handle language change
@@ -212,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
   // Show initial loading state
   showLoading();
   
-  // Get initial video information and available languages
+  // Initial load - always fetch fresh data
   chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
     if (!tabs[0]) {
       showError('Cannot access current tab');
@@ -230,9 +242,9 @@ document.addEventListener('DOMContentLoaded', function() {
       
       if (response && response.videoId) {
         currentVideo = response;
-        console.log('Current video:', response); // For debugging
-        loadLanguages(); // Load available languages
-        fetchTranscript(); // Pre-fetch transcript
+        console.log('Initial video load:', response); // Debug log
+        loadLanguages();
+        fetchTranscript();
       } else {
         showError('Unable to get video information. Please make sure you are on a YouTube video page.');
       }
